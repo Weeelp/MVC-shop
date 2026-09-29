@@ -1,6 +1,6 @@
 PORT=8080
 
-.PHONY: run stop build javadoc
+.PHONY: run stop build javadoc docker-up docker-down
 
 run: stop
 	mvn jetty:run
@@ -17,3 +17,9 @@ build:
 
 javadoc:
 	mvn javadoc:javadoc
+
+docker-up:
+	docker-compose up --build -d
+
+docker-down:
+	docker-compose down

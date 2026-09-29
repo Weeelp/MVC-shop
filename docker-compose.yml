@@ -1,0 +1,34 @@
+services:
+  shop-db:
+    image: postgres:15-alpine
+    container_name: shop_postgres_container
+    environment:
+      POSTGRES_DB: shop_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shop-network
+
+  shop-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shop_jetty_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - shop-db
+    networks:
+      - shop-network
+
+volumes:
+  postgres_data:
+
+networks:
+  shop-network:
+    driver: bridge
