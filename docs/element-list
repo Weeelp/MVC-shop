@@ -1,0 +1,6 @@
+com.shop.controller
+com.shop.dao
+com.shop.exception
+com.shop.model
+com.shop.service
+com.shop.util
